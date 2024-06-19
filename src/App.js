@@ -25,7 +25,11 @@ function App() {
   }
 
   useEffect(()=>{
-    getMovies();
+    if(searchValue){
+      getMovies();
+    } else {
+      setMovies([]);
+    }
   },[searchValue]);
 
   useEffect(()=>{
