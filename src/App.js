@@ -63,13 +63,23 @@ function App() {
         <SearchBar searchValue={searchValue} setValue={setSearchValue} />
       </div>
 			<div className='row'>
-        <MovieList movies={movies} handleFavouritesClick={addFavouriteMovie} favouriteComponent={AddFavourites}/>
+        {searchValue && !movies.length &&
+          <p className='empty-list'>No movie found..!</p>
+        }
+        {movies.length > 0 && 
+          <MovieList movies={movies} handleFavouritesClick={addFavouriteMovie}  favouriteComponent={AddFavourites}/>
+        }
 			</div>
       <div className='row d-flex align-items-center mt-4 mb-4'>
         <MovieListHeading heading='Favourites'/>
       </div>
       <div className='row'>
-        <MovieList movies={favourites} handleFavouritesClick={removedFavouriteMovie} favouriteComponent={removeFavourites}/>
+        {favourites.length == 0 && 
+          <p className='empty-list'>No Favourite Movies :(</p>
+        }
+        {favourites.length > 0 && 
+          <MovieList movies={favourites} handleFavouritesClick={removedFavouriteMovie} favouriteComponent={removeFavourites}/>
+        }
 			</div>
 		</div>
   );

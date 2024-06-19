@@ -62,5 +62,6 @@ body::-webkit-scrollbar,
 }
 
 .empty-list{
-  margin-left: 20%;
+  margin-left: 5%;
+  opacity: 0.5;
 }
