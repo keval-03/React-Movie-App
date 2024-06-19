@@ -1,6 +1,7 @@
 body{
   background: #141414;
   color: #ffffff;
+  overflow-y: auto;
 }
 
 .movie-app > .row {
@@ -9,6 +10,7 @@ body{
   flex-wrap: nowrap;
 }
 
+body::-webkit-scrollbar,
 .movie-app > .row::-webkit-scrollbar {
   display: none;
 }
@@ -39,17 +41,27 @@ body{
   text-align: center;
 }
 
+.cancel-button:focus{
+  outline: none;
+}
+
 .cancel-button{
   position: absolute;
+  background-color: #fff;
   border: 0;
   padding: 0;
-  height: 30px;
-  width: 30px;
   right: 20px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .cancel-button > svg{
-  height: 100%;
-  width: 100%;
+  height: 30px;
+  width: 30px;
+}
+
+.empty-list{
+  margin-left: 5%;
+  opacity: 0.5;
 }

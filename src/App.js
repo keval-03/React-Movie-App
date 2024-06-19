@@ -6,27 +6,16 @@ import MovieListHeading from './components/movieListHeading';
 import SearchBar from './components/searchBar';
 import AddFavourites from './components/addFavourite';
 import removeFavourites from './components/removeFavourites';
+import { getMovies } from './services/api_calls';
 
 function App() {
   const [movies,setMovies]=useState([])
   const [searchValue,setSearchValue]=useState('');
   const [favourites,setFavourites]=useState([]);
 
-  const getMovies=async()=>{
-    const url=`http://www.omdbapi.com/?s=${searchValue}&apikey=a52b551`;
-
-    const res=await fetch(url);
-    const resJson=await res.json();
-
-    // console.log(resJson);
-    if(resJson.Search){
-      setMovies(resJson.Search);
-    }
-  }
-
   useEffect(()=>{
     if(searchValue){
-      getMovies();
+      getMovies(searchValue, setMovies);
     } else {
       setMovies([]);
     }
@@ -57,21 +46,42 @@ function App() {
   }
   
   return (
-    <div className='container-fluid movie-app'>
-      <div className='row d-flex align-items-center mt-4 mb-4'>
-        <MovieListHeading heading='Movies'/>
+    <div className="container-fluid movie-app">
+      <div className="row d-flex align-items-center mt-4 mb-4">
+        <MovieListHeading heading="Movies" />
         <SearchBar searchValue={searchValue} setValue={setSearchValue} />
       </div>
-			<div className='row'>
-        <MovieList movies={movies} handleFavouritesClick={addFavouriteMovie} favouriteComponent={AddFavourites}/>
-			</div>
-      <div className='row d-flex align-items-center mt-4 mb-4'>
-        <MovieListHeading heading='Favourites'/>
+      <div className="row">
+        {searchValue && !movies.length && (
+          <p className="empty-list">Sorry! No such movie found :(</p>
+        )}
+        {!searchValue && !movies.length && (
+          <p className="empty-list">Search Movies...</p>
+        )}
+        {movies.length > 0 && (
+          <MovieList
+            movies={movies}
+            handleFavouritesClick={addFavouriteMovie}
+            favouriteComponent={AddFavourites}
+          />
+        )}
       </div>
-      <div className='row'>
-        <MovieList movies={favourites} handleFavouritesClick={removedFavouriteMovie} favouriteComponent={removeFavourites}/>
-			</div>
-		</div>
+      <div className="row d-flex align-items-center mt-4 mb-4">
+        <MovieListHeading heading="Favourites" />
+      </div>
+      <div className="row">
+        {favourites.length === 0 && (
+          <p className="empty-list">No Favourite Movies!!</p>
+        )}
+        {favourites.length > 0 && (
+          <MovieList
+            movies={favourites}
+            handleFavouritesClick={removedFavouriteMovie}
+            favouriteComponent={removeFavourites}
+          />
+        )}
+      </div>
+    </div>
   );
 }
 
