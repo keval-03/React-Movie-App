@@ -38,3 +38,18 @@ body{
   padding: 20px;
   text-align: center;
 }
+
+.cancel-button{
+  position: absolute;
+  border: 0;
+  padding: 0;
+  height: 30px;
+  width: 30px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.cancel-button > svg{
+  height: 100%;
+  width: 100%;
+}
